@@ -1,6 +1,26 @@
- 
-[![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=500&size=16&duration=4500&pause=2000&color=00FF9C&center=true&vCenter=true&width=700&lines=%E2%9A%A1+%22Don't+just+learn+the+tools+%E2%80%94+build+things+that+matter%22;%F0%9F%9A%80+Turning+data+into+decisions+%7C+Automating+the+boring+stuff)](https://github.com/mahipalrajpurohit529-dotcom)
- 
-[![Footer](https://capsule-render.vercel.app/api?type=waving&color=0:0a0a0a,50:003322,100:00ff9c&height=140&section=footer&animation=fadeIn)](https://github.com/mahipalrajpurohit529-dotcom)
- 
-</div>
+name: Generate Snake
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate Snake
+        uses: Platane/snk@v3
+        with:
+          github_user_name: mahipalrajpurohit529-dotcom
+          outputs: |
+            dist/github-snake.svg
+            dist/github-snake-dark.svg?palette=github-dark
+
+      - name: Push to output branch
+        uses: crazy-max/ghaction-github-pages@v3.1.0
+        with:
+          target_branch: output
+          build_dir: dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
